@@ -13,8 +13,15 @@ function parseConfigLine(line) {
 	let host
 	let name
 	let version
+
 	if (line.includes(":")) [id, host] = line.split(":")
+
+	const scoped = id[0] === "@"
+	if (scoped) id = id.slice(1)
+
 	if (id.includes("@")) [name, version] = id.split("@")
 	else name = id
+
+	if (scoped) name = "@" + name
 	return {name, version, host}
 }

@@ -1,6 +1,6 @@
 {
 	"name": "importly",
-	"version": "0.0.0-dev.0",
+	"version": "0.0.0-dev.1",
 	"description": "",
 	"main": "source/cli.mjs",
 	"module": "source/cli.mjs",
@@ -25,5 +25,8 @@
 		"request": "^2.88.0",
 		"request-promise": "^4.2.4",
 		"yargs": "^13.2.2"
+	},
+	"devDependencies": {
+		"commander": "^2.19.0"
 	}
 }
