@@ -1,0 +1,7 @@
+{
+	"packages": [
+		"lit-html",
+		"lit-element@2.1.0:unpkg",
+		"mobx:jsdelivr"
+	]
+}
