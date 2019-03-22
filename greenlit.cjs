@@ -2,13 +2,13 @@
 
 require("yargs")
 
-	.scriptName("litany")
+	.scriptName("greenlit")
 
 	.usage("$0 <cmd> [args]")
 
 	.command(
 		"install [package-name]",
-		"add a package to litany.json",
+		"add a package to greenlit.json",
 		yargs => {
 			yargs.positional("package-name", {
 				type: "string",
