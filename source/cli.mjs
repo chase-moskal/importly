@@ -6,11 +6,11 @@ import {default as yargs} from "yargs"
 import {generate} from "./generate.mjs"
 
 yargs
-	.scriptName("greenlit")
+	.scriptName("importly")
 	.usage("$0 <cmd> [args]")
 	.command(
 		"generate [host] [config-path]",
-		"create an importmap, based on greenlit.config",
+		"create an importmap, based on importly.config",
 		yargs => yargs
 			.positional("host", {
 				type: "string",
@@ -19,8 +19,8 @@ yargs
 			})
 			.positional("config-path", {
 				type: "string",
-				default: "greenlit.config",
-				describe: "file path to greenlit config"
+				default: "importly.config",
+				describe: "file path to importly config"
 			}),
 		generate
 	)
@@ -29,7 +29,7 @@ yargs
 	.argv
 
 // 		async({cdn}) => {
-// 			const config = JSON.parse(await fs.readFile("./greenlit.json"))
+// 			const config = JSON.parse(await fs.readFile("./importly.json"))
 // 			const {detailedPackages} = parseConfig({config, defaultCdn: cdn})
 
 // 			const pending = detailedPackages.map(async({cdn, name, version}) => {

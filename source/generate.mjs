@@ -4,7 +4,7 @@ import {errorPrefix} from "./error-prefix.mjs"
 import {parseConfig} from "./parse-config.mjs"
 import {queryPackage} from "./query-package.mjs"
 
-const err = errorPrefix(`greenlit generate error: `)
+const err = errorPrefix(`importly generate error: `)
 
 export async function generate({host, configPath}) {
 	try {

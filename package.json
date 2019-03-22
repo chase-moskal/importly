@@ -1,26 +1,26 @@
 {
-	"name": "greenlit",
+	"name": "importly",
 	"version": "0.0.0-dev.0",
 	"description": "",
 	"main": "source/cli.mjs",
 	"module": "source/cli.mjs",
 	"bin": {
-		"greenlit": "source/cli.mjs"
+		"importly": "source/cli.mjs"
 	},
 	"scripts": {
 		"test": "node --experimental-modules --no-warnings source/cli.mjs generate > dist/importmap.json"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/chase-moskal/greenlit.git"
+		"url": "git+https://github.com/chase-moskal/importly.git"
 	},
 	"keywords": [],
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/chase-moskal/greenlit/issues"
+		"url": "https://github.com/chase-moskal/importly/issues"
 	},
-	"homepage": "https://github.com/chase-moskal/greenlit#readme",
+	"homepage": "https://github.com/chase-moskal/importly#readme",
 	"dependencies": {
 		"request": "^2.88.0",
 		"request-promise": "^4.2.4",
