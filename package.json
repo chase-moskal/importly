@@ -1,7 +1,7 @@
 {
 	"name": "importly",
 	"version": "0.0.0-dev.1",
-	"description": "",
+	"description": "concept web package manager",
 	"main": "source/cli.mjs",
 	"module": "source/cli.mjs",
 	"bin": {
@@ -26,7 +26,5 @@
 		"request-promise": "^4.2.4",
 		"yargs": "^13.2.2"
 	},
-	"devDependencies": {
-		"commander": "^2.19.0"
-	}
+	"devDependencies": {}
 }
