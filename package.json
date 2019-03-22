@@ -1,0 +1,26 @@
+{
+	"name": "litany",
+	"version": "0.0.0-dev.0",
+	"description": "",
+	"main": "litany.cjs",
+	"bin": {
+		"litany": "litany.cjs"
+	},
+	"scripts": {
+		"test": "exit 0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/chase-moskal/litany.git"
+	},
+	"keywords": [],
+	"author": "Chase Moskal <chasemoskal@gmail.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/chase-moskal/litany/issues"
+	},
+	"homepage": "https://github.com/chase-moskal/litany#readme",
+	"dependencies": {
+		"yargs": "^13.2.2"
+	}
+}
