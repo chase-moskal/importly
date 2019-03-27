@@ -1,17 +1,17 @@
 
-# ⚙📦 importly
+# ⚙ importly 📦
 
 ***import map generator / web package manager***  
 &nbsp;&nbsp;&nbsp; *(early work-in-progress, see github issues)*
 
-## primer, backstory, rationale
+## primer, backstory, and rationale
 
 - **es modules have landed in browsers,** and we can import any npm package from cdn services like ([unpkg](https://unpkg.com/) and [jsdelivr](https://www.jsdelivr.com/))  
   ```html
   <!-- NO IMPORT MAP -->
   <script type="module">
     import {html} from "https://unpkg.com/lit-element@2.1.0/lit-element.js"
-     //# fails because lit-element.js imports "lit-html" (bare-specifier)
+     // fails because lit-element.js imports "lit-html" (bare-specifier)
   </script>
   ```
 - we can ditch our local `node_modules` and our build step altogether
@@ -23,8 +23,8 @@
   <script type="importmap" src="importmap.json"></script>
   <script type="module">
     import {html} from "lit-element"
-     //# succeeds because the import map resolves "lit-element"
-     //# and the sub-dependency "lit-html" to fully qualified urls
+     // succeeds because the import map resolves "lit-element"
+     // and the sub-dependency "lit-html" to fully qualified urls
   </script>
   ```
 - [**es-module-shims**](https://github.com/guybedford/es-module-shims) allows us to use import-maps today!
