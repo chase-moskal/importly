@@ -1,8 +1,8 @@
 
-import * as fs from "./smartfs.mjs"
-import {errorPrefix} from "./error-prefix.mjs"
-import {parseConfig} from "./parse-config.mjs"
-import {prepQueryPackage} from "./prep-query-package.mjs"
+import * as fs from "./smartfs"
+import {errorPrefix} from "./error-prefix"
+import {parseConfig} from "./parse-config"
+import {prepQueryPackage} from "./prep-query-package"
 
 const err = errorPrefix(`importly generate error: `)
 

@@ -1,7 +1,7 @@
 
-import {default as request} from "request-promise"
+import request from "request-promise"
 
-import {urlStamps} from "./url-stamps.mjs"
+import {urlStamps} from "./url-stamps"
 
 export function prepQueryPackage({defaultHost}) {
 	return async function queryPackage({

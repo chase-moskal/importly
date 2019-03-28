@@ -2,14 +2,19 @@
 	"name": "importly",
 	"version": "0.0.0-dev.1",
 	"description": "concept web package manager",
-	"main": "source/cli.mjs",
-	"module": "source/cli.mjs",
+	"main": "dist/cli.js",
 	"bin": {
-		"importly": "source/cli.mjs"
+		"importly": "source/cli.js"
 	},
 	"scripts": {
-		"test": "node --experimental-modules --no-warnings source/cli.mjs generate > dist/importmap.json"
+		"prepare": "run-s clean compile-cjs test",
+		"clean": "rimraf dist dist-test && mkdirp dist dist-test",
+		"compile-cjs": "babel source --out-dir dist",
+		"test": "node . generate > dist-test/importmap.json"
 	},
+	"files": [
+		"dist"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/chase-moskal/importly.git"
@@ -22,9 +27,17 @@
 	},
 	"homepage": "https://github.com/chase-moskal/importly#readme",
 	"dependencies": {
+		"get-stdin": "^6.0.0",
 		"request": "^2.88.0",
 		"request-promise": "^4.2.4",
 		"yargs": "^13.2.2"
 	},
-	"devDependencies": {}
+	"devDependencies": {
+		"@babel/cli": "^7.2.3",
+		"@babel/core": "^7.4.0",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+		"mkdirp": "^0.5.1",
+		"npm-run-all": "^4.1.5",
+		"rimraf": "^2.6.3"
+	}
 }

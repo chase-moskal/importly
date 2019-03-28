@@ -1,8 +1,7 @@
-#!/bin/sh
-":" //# comment; exec /usr/bin/env node --experimental-modules --no-warnings "$0" "$@"
+#!/usr/bin/env node
 
-import {default as yargs} from "yargs"
-import {generate} from "./generate.mjs"
+import yargs from "yargs"
+import {generate} from "./generate"
 
 yargs
 	.scriptName("importly")

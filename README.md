@@ -2,7 +2,8 @@
 # ⚙ importly 📦
 
 ***import map generator / web package manager***  
-&nbsp;&nbsp;&nbsp; *(early work-in-progress, see github issues)*
+&nbsp;&nbsp;&nbsp; *early prototype, breaking changes coming soon*  
+&nbsp;&nbsp;&nbsp; *see github issues*
 
 ## primer, backstory, and rationale
 
