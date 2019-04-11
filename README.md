@@ -27,13 +27,15 @@
 
 - for the above example, we give the browser this import map:
 
-  ```json
-  {
-    "imports": {
-      "lit-html/": "https://unpkg.com/lit-html@1.0.0/",
-      "lit-html": "https://unpkg.com/lit-html@1.0.0/lit-html.js",
+  ```html
+  <script type="importmap">
+    {
+      "imports": {
+        "lit-html/": "https://unpkg.com/lit-html@1.0.0/",
+        "lit-html": "https://unpkg.com/lit-html@1.0.0/lit-html.js",
+      }
     }
-  }
+  </script>
   ```
 
   and now the browser knows where to load `lit-html` when we import it ✔️
