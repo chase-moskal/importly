@@ -1,6 +1,6 @@
 {
 	"name": "importly",
-	"version": "0.0.0-dev.1",
+	"version": "0.0.0-dev.2",
 	"description": "concept web package manager",
 	"main": "dist/cli.js",
 	"bin": {
@@ -27,8 +27,8 @@
 		"request-promise": "^4.2.4"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.2.3",
-		"@babel/core": "^7.4.0",
+		"@babel/cli": "^7.4.3",
+		"@babel/core": "^7.4.3",
 		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
 		"mkdirp": "^0.5.1",
 		"npm-run-all": "^4.1.5",
