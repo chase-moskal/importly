@@ -10,7 +10,7 @@ export function prepQueryPackage({defaultHost}) {
 		host = defaultHost
 	}) {
 		const stamp = urlStamps[host]
-		if (!stamp) throw err(`unknown host '${host}' for package '${name}'`)
+		if (!stamp) throw new Error(`unknown host '${host}' for package '${name}'`)
 
 		const firstUrl = stamp({name, version})
 		const {packageVersion, packageModule} = await queryPackageJson(`${firstUrl}/package.json`)
@@ -35,7 +35,8 @@ export function prepQueryPackage({defaultHost}) {
 			}
 		}
 		catch(error) {
-			throw err(error, `error loading package.json for '${name}' from "${packageJsonUrl}"`)
+			error.message = `error reading package json for '${name}' from "${packageJsonUrl}": ${error.message}`
+			throw error
 		}
 	}
 }
