@@ -1,10 +1,10 @@
 {
 	"name": "importly",
-	"version": "0.0.0-dev.2",
+	"version": "0.0.0-dev.3",
 	"description": "concept web package manager",
 	"main": "dist/cli.js",
 	"bin": {
-		"importly": "source/cli.js"
+		"importly": "dist/cli.js"
 	},
 	"scripts": {
 		"prepare": "run-s clean compile-cjs test",
