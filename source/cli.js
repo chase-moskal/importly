@@ -3,7 +3,7 @@
 import getStdin from "get-stdin"
 
 import {parseConfig} from "./parse-config"
-import {prepQueryPackage} from "./prep-query-package"
+import {queryPackage} from "./query-package"
 
 main()
 
@@ -11,9 +11,10 @@ async function main() {
 	try {
 		const input = await getStdin()
 		const config = parseConfig(input)
-		const defaultHost = config.settings.host || "unpkg"
-		const queryPackage = prepQueryPackage({defaultHost})
-		const pending = config.packages.map(queryPackage)
+		const hosts = config.settings.hosts
+		const pending = config.packages.map(
+			pack => queryPackage({...pack, hosts})
+		)
 		const metaImports = await Promise.all(pending)
 		const importmap = {imports: combineImports(metaImports)}
 		const json = JSON.stringify(importmap, null, "\t")
@@ -22,7 +23,7 @@ async function main() {
 	}
 	catch (error) {
 		error.message = `importly: ${error.message}`
-		console.error(error)
+		console.error(error.message)
 		process.exit(-1)
 	}
 }

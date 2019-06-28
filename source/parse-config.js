@@ -1,6 +1,4 @@
 
-import * as JSON5 from "json5"
-
 function parseConfigItems(input) {
 	const symbolRegex = /(?=⚙|\$|📦|&)/igm
 	let items = []
@@ -19,22 +17,28 @@ function parseConfigItems(input) {
 }
 
 export function parseConfig(input) {
-	const items = parseConfigItems(input)
+	let statements = []
 
-	const statements = items
-		.map(item => item.trim())
-		.filter(item => item.length > 0)
-		.map(item => {
-			const [, symbol, body] = /^(⚙|\$|📦|&)\s*([\s\S]*)$/i.exec(item)
-			return {symbol, body}
-		})
+	if (/^\s*\{/.test(input)) {
+		console.error("IT'S GODDAMN JSON!!!")
+	}
+	else {
+		const items = parseConfigItems(input)
+		statements = items
+			.map(item => item.trim())
+			.filter(item => item.length > 0)
+			.map(item => {
+				const [, symbol, body] = /^(⚙|\$|📦|&)\s*([\s\S]*)$/i.exec(item)
+				return {symbol, body}
+			})
+	}
 
 	const settingStatements = filterStatementsBySymbols(statements, ["⚙", "$"])
 	const packageStatements = filterStatementsBySymbols(statements, ["📦", "&"])
 
 	return {
 		settings: {
-			host: parseHostSetting(settingStatements)
+			hosts: parseHostsSetting(settingStatements)
 		},
 		packages: parsePackages(packageStatements)
 	}
@@ -44,15 +48,15 @@ function filterStatementsBySymbols(statements, symbols) {
 	return statements.filter(({symbol}) => symbols.includes(symbol))
 }
 
-function parseHostSetting(settingStatements) {
-	let host
-	const hostStatements = settingStatements.filter(statement => /^.*host/i.test(statement.body))
+function parseHostsSetting(settingStatements) {
+	let hosts = []
+	const hostStatements = settingStatements.filter(statement => /^.*hosts?/i.test(statement.body))
 	if (hostStatements.length > 1) throw new Error(`can't handle more than one 'host' setting`)
 	if (hostStatements.length === 1) {
-		const [, content] = hostStatements[0].body.match(/^.*host:?=?(.+)$/i)
-		host = JSON5.parse(content)
+		const [, content] = hostStatements[0].body.match(/^.*hosts?:?=?(.+)$/i)
+		hosts = content.split(/[\s,]+/).map(x => x.trim()).filter(x => !!x)
 	}
-	return host
+	return hosts
 }
 
 function parsePackages(packageStatements) {

@@ -16,7 +16,7 @@
 		"dist"
 	],
 	"importly": [
-		"⚙ host 'unpkg'",
+		"⚙ host jsdelivr",
 		"📦 lit-html",
 		"📦 lit-element@2.1.0"
 	],
