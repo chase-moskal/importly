@@ -11,9 +11,10 @@ async function main() {
 	try {
 		const input = await getStdin()
 		const config = parseConfig(input)
-		const hosts = config.settings.hosts
+		if (config.hosts.length < 1)
+			throw new Error(`at least one host must be provided, eg, "📡 unpkg"`)
 		const pending = config.packages.map(
-			pack => resolvePackage({...pack, hosts})
+			pack => resolvePackage({...pack, hosts: config.hosts})
 		)
 		const metaImports = await Promise.all(pending)
 		const importmap = {imports: combineImports(metaImports)}

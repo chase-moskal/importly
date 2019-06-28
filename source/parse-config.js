@@ -30,18 +30,20 @@ export function parseConfig(input) {
 		.map(item => item.trim())
 		.filter(item => item.length > 0)
 		.map(item => {
-			const [, symbol, body] = /^(⚙|\$|📦|&)\s*([\s\S]*)$/i.exec(item)
+			const [, symbol, body] = /^(📡|\#|⚙|\$|📦|&)\s*([\s\S]*)$/i.exec(item)
 			return {symbol, body}
 		})
 
-	const settingStatements = filterStatementsBySymbols(statements, ["⚙", "$"])
+	const hostStatements = filterStatementsBySymbols(statements, ["📡", "#"])
 	const packageStatements = filterStatementsBySymbols(statements, ["📦", "&"])
+	// const settingStatements = filterStatementsBySymbols(statements, ["⚙", "$"])
 
 	return {
-		settings: {
-			hosts: parseHostsSetting(settingStatements)
-		},
+		hosts: parseHostStatements(hostStatements),
 		packages: parsePackages(packageStatements)
+		// settings: {
+		// 	hosts: parseHostsSetting(settingStatements)
+		// },
 	}
 }
 
@@ -49,13 +51,26 @@ function filterStatementsBySymbols(statements, symbols) {
 	return statements.filter(({symbol}) => symbols.includes(symbol))
 }
 
-function parseHostsSetting(settingStatements) {
-	let hosts = []
-	const hostStatements = settingStatements.filter(statement => /^.*hosts?/i.test(statement.body))
-	if (hostStatements.length > 1) throw new Error(`can't handle more than one 'host' setting`)
-	if (hostStatements.length === 1) {
-		const [, content] = hostStatements[0].body.match(/^.*hosts?:?=?(.+)$/i)
-		hosts = content.split(/[\s,]+/).map(x => x.trim()).filter(x => !!x)
+// function parseHostsSetting(settingStatements) {
+// 	let hosts = []
+// 	const hostStatements = settingStatements.filter(statement => /^.*hosts?/i.test(statement.body))
+// 	if (hostStatements.length > 1) throw new Error(`can't handle more than one 'host' setting`)
+// 	if (hostStatements.length === 1) {
+// 		const [, content] = hostStatements[0].body.match(/^.*hosts?:?=?(.+)$/i)
+// 		hosts = content.split(/[\s,]+/).map(x => x.trim()).filter(x => !!x)
+// 	}
+// 	return hosts
+// }
+
+function parseHostStatements(hostStatements) {
+	const hosts = []
+	for (const statement of hostStatements) {
+		if (statement) {
+			const extracted = statement.body.split(/[\s,]+/)
+				.map(s => s.trim())
+				.filter(s => !!s)
+			for (const extractee of extracted) hosts.push(extractee)
+		}
 	}
 	return hosts
 }
