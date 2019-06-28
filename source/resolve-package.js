@@ -27,7 +27,7 @@ function getStamp({stamps, host}) {
 	return stamp
 }
 
-export async function queryPackage({
+export async function resolvePackage({
 	name,
 	hosts,
 	version = "latest",

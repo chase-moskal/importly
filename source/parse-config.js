@@ -1,4 +1,6 @@
 
+import * as JSON5 from "json5"
+
 function parseConfigItems(input) {
 	const symbolRegex = /(?=⚙|\$|📦|&)/igm
 	let items = []
@@ -17,21 +19,20 @@ function parseConfigItems(input) {
 }
 
 export function parseConfig(input) {
-	let statements = []
-
 	if (/^\s*\{/.test(input)) {
-		console.error("IT'S GODDAMN JSON!!!")
+		const json = JSON5.parse(input)
+		input = json.importly.join("\n")
+		console.error(`JSON'D!! ${input}`)
 	}
-	else {
-		const items = parseConfigItems(input)
-		statements = items
-			.map(item => item.trim())
-			.filter(item => item.length > 0)
-			.map(item => {
-				const [, symbol, body] = /^(⚙|\$|📦|&)\s*([\s\S]*)$/i.exec(item)
-				return {symbol, body}
-			})
-	}
+
+	const items = parseConfigItems(input)
+	const statements = items
+		.map(item => item.trim())
+		.filter(item => item.length > 0)
+		.map(item => {
+			const [, symbol, body] = /^(⚙|\$|📦|&)\s*([\s\S]*)$/i.exec(item)
+			return {symbol, body}
+		})
 
 	const settingStatements = filterStatementsBySymbols(statements, ["⚙", "$"])
 	const packageStatements = filterStatementsBySymbols(statements, ["📦", "&"])
@@ -81,7 +82,7 @@ function parsePackageStatement(statement) {
 	const scoped = id[0] === "@"
 	if (scoped) id = id.slice(1)
 
-	if (id.includes("@")) [name, version] = id.split("@")
+	if (id.includes("@")) [name, version] = id.split("@").map(x => x.trim())
 	else name = id
 
 	if (scoped) name = "@" + name

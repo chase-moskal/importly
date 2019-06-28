@@ -3,7 +3,7 @@
 import getStdin from "get-stdin"
 
 import {parseConfig} from "./parse-config"
-import {queryPackage} from "./query-package"
+import {resolvePackage} from "./resolve-package"
 
 main()
 
@@ -13,7 +13,7 @@ async function main() {
 		const config = parseConfig(input)
 		const hosts = config.settings.hosts
 		const pending = config.packages.map(
-			pack => queryPackage({...pack, hosts})
+			pack => resolvePackage({...pack, hosts})
 		)
 		const metaImports = await Promise.all(pending)
 		const importmap = {imports: combineImports(metaImports)}
