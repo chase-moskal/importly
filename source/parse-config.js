@@ -21,7 +21,9 @@ function parseConfigItems(input) {
 export function parseConfig(input) {
 	if (/^\s*\{/.test(input)) {
 		const json = JSON5.parse(input)
-		input = json.importly.join("\n")
+		input = typeof json.importly === "string"
+			? json.importly
+			: json.importly.join("\n")
 	}
 
 	const items = parseConfigItems(input)

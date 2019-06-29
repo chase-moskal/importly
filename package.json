@@ -15,7 +15,9 @@
 		"prepare": "run-s clean compile-cjs test",
 		"clean": "rimraf dist dist-test && mkdirp dist dist-test",
 		"compile-cjs": "babel source --out-dir dist",
-		"test": "node . < importly.config > dist-test/importmap.json"
+		"test": "node . < importly.config > dist-test/importmap.json",
+		"test2": "node . < package.json > dist-test/importmap.json",
+		"test3": "echo '📡 unpkg, jsdelivr 📦 lit-element' | node . > dist-test/importmap.json"
 	},
 	"importly": [
 		"📡 unpkg, jsdelivr",
