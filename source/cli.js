@@ -25,6 +25,7 @@ async function main() {
 	catch (error) {
 		error.message = `importly: ${error.message}`
 		console.error(error.message)
+		console.error(error.stack)
 		process.exit(-1)
 	}
 }

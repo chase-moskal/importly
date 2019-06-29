@@ -22,7 +22,6 @@ export function parseConfig(input) {
 	if (/^\s*\{/.test(input)) {
 		const json = JSON5.parse(input)
 		input = json.importly.join("\n")
-		console.error(`JSON'D!! ${input}`)
 	}
 
 	const items = parseConfigItems(input)
