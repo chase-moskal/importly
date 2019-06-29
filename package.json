@@ -1,6 +1,6 @@
 {
 	"name": "importly",
-	"version": "0.0.0-dev.6",
+	"version": "0.0.0-dev.7",
 	"description": "concept web package manager",
 	"license": "ISC",
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
@@ -20,7 +20,7 @@
 	"importly": [
 		"📡 unpkg, jsdelivr",
 		"📦 lit-html",
-		"📦 lit-element@2.1.0"
+		"📦 lit-element"
 	],
 	"repository": {
 		"type": "git",

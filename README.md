@@ -1,5 +1,5 @@
 
-# 📦 importly ⚙
+# 📦 importly 📡
 
 ***import map generator / web package manager***  
 &nbsp;&nbsp;&nbsp; *early prototype*  
@@ -51,10 +51,10 @@
 2. list some packages in your project's `importly.config`
 
     ```
-    ⚙ host 'unpkg'
+    📡 unpkg, jsdelivr
     📦 lit-html
-    📦 lit-element@2.1.0
-    📦 mobx:jsdelivr
+    📦 lit-element@2.2.0
+    📦 mobx
     📦 @babylonjs/core
     ```
 
@@ -91,15 +91,14 @@
 ## notes
 
 - if you're so dead inside, the emoji's are optional
-  - config lines start with `⚙` or `$`
+  - host statements start with `📡` or `$`
   - package statements start with `📦` or `&`
-- the host setting tells importly from where to load the dependencies, currently supported:
+- the host statement tells importly from where to load the dependencies, currently supported:
   - `unpkg`
   - `jsdelivr`
 - package statements have this format: `📦 name@version:host`
-  - **name:** the name of an npm package, like `preact` or `lit-element`
-  - **version:** the version number
-  - **host:** the cdn service to load modules from (`unpkg` or `jsdelivr`)
+  - name: the name of an npm package, like `preact` or `lit-element`
+  - version: the version number
 - you can embed your importly config into a `package.json` under the key "importly"
   - can be a single string, or an array of strings (see this [package.json](package.json) for example)
   - then you just run `importly < package.json > dist/importmap.json`
