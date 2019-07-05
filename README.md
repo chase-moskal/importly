@@ -7,7 +7,7 @@
 - just list which packages you want, and importly will generate an import map for them
 - as a web package manager, importly is an alternative to using npm/yarn/bundlers
 
-first, i'll give a quick rundown: [*"importly.config"*](#importly.config)  
+first, i'll give a quick rundown: [*"importly.config"*](#importlyconfig)  
 then, i'll explain what import maps are about: [*"primer, backstory, rational"*](#primer-backstory-rationale)  
 and finally, i'll give more detailed instructions: [*"introducing importly, a tool for generating import maps"*](#introducing-importly-a-tool-for-generating-import-maps)
 
