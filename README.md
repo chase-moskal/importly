@@ -3,13 +3,18 @@
 
 *import map generator / web package manager*
 
-- importly is a command-line tool to generate import maps
+- importly is a command-line tool to generate [import maps](https://github.com/WICG/import-maps)
 - just list which packages you want, and importly will generate an import map for them
 - as a web package manager, importly is an alternative to using npm/yarn/bundlers
 
-first, i'll give a quick rundown, then i'll explain things in more detail
+first, i'll give a quick rundown: [*"importly.config"*](#importly.config)  
+then, i'll explain what import maps are about: [*"primer, backstory, rational"*](#primer-backstory-rationale)  
+and finally, i'll give more detailed instructions: [*"introducing importly, a tool for generating import maps"*](#introducing-importly-a-tool-for-generating-import-maps)
 
-if you're not sure why you'd want an import map, jump to the [*"primer, backstory, rational"*](#primer-backstory-rationale) heading
+> **let's do the open source thing!**  
+> this tool is experimental, and i'm open to new ideas!  
+> so please, don't hesitate to contribute by opening new issues to ask questions, discuss ideas, question and even criticize! if you have any ideas, thoughts, or comments: i want to hear it, don't be shy!  
+> *cheers! 👋 Chase*
 
 ## importly.config
 
