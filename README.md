@@ -39,7 +39,7 @@ let me explain what comprises an `importly.config`
   specify an npm package name, and a semver range.  
   you can also use the `&` symbol instead of `📦`
 
-*savvy?* in short, you just `npm i -g importly` and then run the importly cli on the config file, like `importly < importly.config > dist/importmap.json` — oh yeah and these days, you have to use the [es-module-shims](https://github.com/guybedford/es-module-shims) as a browser polyfill
+*savvy?* in short, you just `npm i -g importly` and then run the importly cli on the config file, like `importly < importly.config > importmap.json` — oh yeah and these days, you have to use the [es-module-shims](https://github.com/guybedford/es-module-shims) as a browser polyfill
 
 the rest of this readme will explain more context, and more detailed instructions
 
@@ -97,7 +97,7 @@ the rest of this readme will explain more context, and more detailed instruction
     *(yes one-liners work, whitespace is optional)*
 
 3. **run importly**  
-    `importly < importly.config > dist/importmap.json`  
+    `importly < importly.config > importmap.json`  
     importly will generate a frozen importmap of your dependencies  
     importly uses stdin/stdout/stderr
 
@@ -137,7 +137,7 @@ the rest of this readme will explain more context, and more detailed instruction
   - name: the name of an npm package, like `preact` or `lit-element`
   - version: accepts a semver range, from which to resolve an exact version
 - remember, whitespace is ignored, so your importly config can be a one-liner
-  - `echo '📡 unpkg 📦 lit-element' | importly > dist/importmap.json`
+  - `echo '📡 unpkg 📦 lit-element' | importly > importmap.json`
 - also, importly will read from `package.json` under the key "importly"
   - can be a single string, or an array of strings (see this [package.json](package.json) for example)
-  - then you just run `importly < package.json > dist/importmap.json`
+  - then you just run `importly < package.json > importmap.json`
