@@ -1,6 +1,6 @@
 {
 	"name": "importly",
-	"version": "0.0.0-dev.9",
+	"version": "0.0.0",
 	"description": "concept web package manager",
 	"license": "ISC",
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
