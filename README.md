@@ -21,7 +21,7 @@ and finally, i'll give more detailed instructions: [*"introducing importly, a to
 tell importly what to generate an import map for
 
 ```
-📡 unpkg, jsdelivr
+📡 unpkg
 📦 mobx
 📦 lit-html
 📦 @babylonjs/core
@@ -93,7 +93,7 @@ the rest of this readme will explain more context, and more detailed instruction
 
 2. **tell importly about your dependencies**  
     create your `importly.config` in your project root  
-    such as: `📡 unpkg, jsdelivr 📦 lit-element`  
+    such as: `📡 unpkg 📦 lit-element`  
     *(yes one-liners work, whitespace is optional)*
 
 3. **run importly**  
@@ -131,13 +131,13 @@ the rest of this readme will explain more context, and more detailed instruction
   - host statements start with `📡` or `$`
   - package statements start with `📦` or `&`
 - 📡 currently supported hosts are just `unpkg` and `jsdelivr`
-  - i'd like to add a new local host, like `node_modules`, to allow local serving
+  - i'd like to add a new local host, like `node_modules`, to allow local serving, though it's possible that `@pika/web` is just a better option for going that route
   - i'd also like to make hosts programmatically extensible
 - 📦 package statements have this format: `📦 name@version`
   - name: the name of an npm package, like `preact` or `lit-element`
   - version: accepts a semver range, from which to resolve an exact version
 - remember, whitespace is ignored, so your importly config can be a one-liner
-  - `echo '📡 unpkg, jsdelivr 📦 lit-element' | importly > dist/importmap.json`
+  - `echo '📡 unpkg 📦 lit-element' | importly > dist/importmap.json`
 - also, importly will read from `package.json` under the key "importly"
   - can be a single string, or an array of strings (see this [package.json](package.json) for example)
   - then you just run `importly < package.json > dist/importmap.json`
