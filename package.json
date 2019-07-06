@@ -17,10 +17,11 @@
 		"compile-cjs": "babel source --out-dir dist",
 		"test": "node . < importly.config > dist-test/importmap.json",
 		"test2": "node . < package.json > dist-test/importmap.json",
-		"test3": "echo '📡 unpkg, jsdelivr 📦 lit-element' | node . > dist-test/importmap.json"
+		"test3": "echo '📡 unpkg 📦 lit-element' | node . > dist-test/importmap.json",
+		"start": "serve"
 	},
 	"importly": [
-		"📡 unpkg, jsdelivr",
+		"📡 unpkg",
 		"📦 lit-html",
 		"📦 lit-element"
 	],
@@ -45,6 +46,7 @@
 		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
 		"mkdirp": "^0.5.1",
 		"npm-run-all": "^4.1.5",
-		"rimraf": "^2.6.3"
+		"rimraf": "^2.6.3",
+		"serve": "^11.0.2"
 	}
 }

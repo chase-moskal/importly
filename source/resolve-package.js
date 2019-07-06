@@ -48,10 +48,12 @@ export async function resolvePackage({
 		)
 
 		// whole-package resolution
-		imports[`${name}/`] = stampedUrls.map(url => `${url}/`)
+		// only use first host
+		imports[`${name}/`] = `${stampedUrls[0]}/`
 
 		// main-module resolution
-		imports[`${name}`] = stampedUrls.map(url => `${url}/${packageModule}`)
+		// only use first host
+		imports[`${name}`] = `${stampedUrls[0]}/${packageModule}`
 	}
 	catch (error) {
 		console.error(`error loading package.json "${name}" from "${firstUrl}": ${error.message}`)
