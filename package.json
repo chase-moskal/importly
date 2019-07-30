@@ -1,9 +1,8 @@
 {
 	"name": "importly",
-	"version": "0.0.0",
+	"version": "0.1.0-dev.0",
 	"description": "concept web package manager",
 	"license": "ISC",
-	"author": "Chase Moskal <chasemoskal@gmail.com>",
 	"main": "dist/cli.js",
 	"files": [
 		"dist"
@@ -15,16 +14,31 @@
 		"prepare": "run-s clean compile-cjs test",
 		"clean": "rimraf dist dist-test && mkdirp dist dist-test",
 		"compile-cjs": "babel source --out-dir dist",
-		"test": "node . < importly.config > dist-test/importmap.json",
-		"test2": "node . < package.json > dist-test/importmap.json",
-		"test3": "echo '📡 unpkg 📦 lit-element' | node . > dist-test/importmap.json",
+		"watch": "npm run -s compile-cjs -- --watch",
+		"test": "node . < package.json > dist-test/importmap.json",
+		"test2": "echo '{importly:{source: \"jsdelivr\"},dependencies:{json5: \"^2.1.0\"}}' | node . > dist-test/importmap.json",
 		"start": "serve"
 	},
-	"importly": [
-		"📡 unpkg",
-		"📦 lit-html",
-		"📦 lit-element"
-	],
+	"importly": {
+		"source": "jsdelivr"
+	},
+	"dependencies": {
+		"get-stdin": "^7.0.0",
+		"json5": "^2.1.0",
+		"request": "^2.88.0",
+		"request-promise": "^4.2.4",
+		"yargs": "^13.3.0"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.5.5",
+		"@babel/core": "^7.5.5",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+		"mkdirp": "^0.5.1",
+		"npm-run-all": "^4.1.5",
+		"rimraf": "^2.6.3",
+		"serve": "^11.1.0"
+	},
+	"author": "Chase Moskal <chasemoskal@gmail.com>",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/chase-moskal/importly.git"
@@ -33,20 +47,5 @@
 		"url": "https://github.com/chase-moskal/importly/issues"
 	},
 	"homepage": "https://github.com/chase-moskal/importly#readme",
-	"keywords": [],
-	"dependencies": {
-		"get-stdin": "^6.0.0",
-		"json5": "^2.1.0",
-		"request": "^2.88.0",
-		"request-promise": "^4.2.4"
-	},
-	"devDependencies": {
-		"@babel/cli": "^7.4.3",
-		"@babel/core": "^7.4.3",
-		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-		"mkdirp": "^0.5.1",
-		"npm-run-all": "^4.1.5",
-		"rimraf": "^2.6.3",
-		"serve": "^11.0.2"
-	}
+	"keywords": []
 }

@@ -21,20 +21,20 @@ async function queryPackageJson(uri) {
 	}
 }
 
-function getStamp({stamps, host}) {
-	const stamp = stamps[host]
-	if (!stamp) throw new Error(`unknown host '${firstHost}' for package '${name}'`)
+function getStamp({stamps, source}) {
+	const stamp = stamps[source]
+	if (!stamp) throw new Error(`no stamp for source '${source}'`)
 	return stamp
 }
 
 export async function resolvePackage({
 	name,
-	hosts,
+	source,
+	lock,
 	version = "latest",
 	stamps = defaultStamps,
 }) {
-	const firstHost = hosts[0]
-	const firstUrl = getStamp({stamps, host: firstHost})({name, version})
+	const firstUrl = getStamp({stamps, source})({name, version})
 	const imports = {}
 
 	try {
@@ -42,21 +42,21 @@ export async function resolvePackage({
 		// fetch meta information about the package, the version and main module
 		const {packageVersion, packageModule} = await queryPackageJson(`${firstUrl}/package.json`)
 
-		// prepare stamped url's for each host
-		const stampedUrls = hosts.map(
-			host => getStamp({stamps, host})({name, version: packageVersion})
-		)
+		// if lock enabled, use a version-locked url instead
+		const secondUrl = lock
+			? getStamp({stamps, source})({name, version: packageVersion})
+			: firstUrl
 
 		// whole-package resolution
 		// only use first host
-		imports[`${name}/`] = `${stampedUrls[0]}/`
+		imports[`${name}/`] = `${secondUrl}/`
 
 		// main-module resolution
 		// only use first host
-		imports[`${name}`] = `${stampedUrls[0]}/${packageModule}`
+		imports[`${name}`] = `${secondUrl}/${packageModule}`
 	}
 	catch (error) {
-		console.error(`error loading package.json "${name}" from "${firstUrl}": ${error.message}`)
+		console.error(`error loading package.json "${name}" from "${source}": ${error.message}`)
 	}
 
 	return imports
