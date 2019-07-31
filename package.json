@@ -11,16 +11,14 @@
 		"importly": "dist/cli.js"
 	},
 	"scripts": {
-		"prepare": "run-s clean compile-cjs test",
+		"prepare": "run-s clean compile-cjs",
 		"clean": "rimraf dist dist-test && mkdirp dist dist-test",
 		"compile-cjs": "babel source --out-dir dist",
 		"watch": "npm run -s compile-cjs -- --watch",
-		"test": "node . < package.json > dist-test/importmap.json",
-		"test2": "echo '{importly:{source: \"jsdelivr\"},dependencies:{json5: \"^2.1.0\"}}' | node . > dist-test/importmap.json",
+		"test": "run-p test1 test2",
+		"test1": "node . < testpackage.json5 > dist-test/importmap.json",
+		"test2": "node . --generator node_modules < testpackage.json5 > dist-test/importmap2.json",
 		"start": "serve"
-	},
-	"importly": {
-		"source": "jsdelivr"
 	},
 	"dependencies": {
 		"get-stdin": "^7.0.0",

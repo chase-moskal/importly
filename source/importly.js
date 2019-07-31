@@ -1,36 +1,52 @@
 
 import * as JSON5 from "json5"
 
-import {resolvePackage} from "./resolve-package.js"
-import {stamps as defaultStamps} from "./stamps.js"
+import {jsdelivr as defaultResolver} from "./resolvers.js"
+import {jsdelivr as defaultGenerator} from "./generators.js"
 
 export async function importly({
 	input,
-	lock = false,
-	stamps = defaultStamps
+	lock = true,
+	verbose = false,
+	resolver = defaultResolver,
+	generator = defaultGenerator
 }) {
 
-	// parse the config
-	const {importly, dependencies} = JSON5.parse(input)
-	const {source} = importly
-	
-	// resolve each package
-	const pending = Object.keys(dependencies).map(name => {
-		const version = dependencies[name]
-		return resolvePackage({name, version, source, lock, stamps})
-	})
+	//
+	// CONFIG
+	//
 
-	// wait for all of the packages to finish
-	const metaImports = await Promise.all(pending)
+	const {dependencies} = JSON5.parse(input)
 
-	// each meta import is its own importmap, so combine all of them
-	const imports = metaImports.reduce(
-		(last, current) => ({...last, ...current}),
-		{}
-	)
+	const log = verbose
+		? (...all) => console.log(...all)
+		: () => {}
 
-	// return the generated import map
-	return {
-		importmap: {imports}
-	}
+	//
+	// QUERY PACKAGE
+	//
+
+	const packages = await Promise.all(Object.keys(dependencies).map(
+		async name => {
+			const version = dependencies[name]
+
+			log(`resolving ${name}@${version}..`)
+			const pack = await resolver({name, version})
+
+			log(`package info for ${name}:`, pack)
+			return pack
+		}
+	))
+
+	//
+	// GENERATION
+	//
+
+	log(`generating import map"`)
+
+	let imports = {}
+	for (const pack of packages)
+		imports = {...imports, ...await generator({...pack, lock})}
+
+	return {importmap: {imports}}
 }
