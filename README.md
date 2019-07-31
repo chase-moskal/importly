@@ -1,59 +1,116 @@
 
 # 📦 importly 📡
 
-*import map generator / web package manager*
+## import map generator
 
-- importly is a command-line tool to generate [import maps](https://github.com/WICG/import-maps)
-- just list which packages you want, and importly will generate an import map for them
-- as a web package manager, importly is an alternative to using npm/yarn/bundlers
+importly is a command-line tool which generates import maps based on package.json dependencies
 
-first, i'll give a quick rundown: [*"importly.config"*](#importlyconfig)  
-then, i'll explain what import maps are about: [*"primer, backstory, rational"*](#primer-backstory-rationale)  
-and finally, i'll give more detailed instructions: [*"introducing importly, a tool for generating import maps"*](#introducing-importly-a-tool-for-generating-import-maps)
+1. **install importly**  
+    `npm install -g importly`
 
-> **let's do the open source thing!**  
-> this tool is experimental, and i'm open to new ideas!  
-> so please, don't hesitate to contribute by opening new issues to ask questions, discuss ideas, question and even criticize! if you have any ideas, thoughts, or comments: i want to hear it, don't be shy!  
-> *cheers! 👋 Chase*
+2. **generate an import map**  
+    `importly < package.json > importmap.json`  
+    importly uses stdin/stdout/stderr  
+    pass in your package.json as input, and importmap.json will be the generated output
 
-## importly.config
+3. **importly will read the dependencies, and generate an importmap**
 
-tell importly what to generate an import map for
+    *input: `package.json`*
+    ```json
+    {
+      "dependencies": {
+        "lit-html": "^1.1.1",
+        "lit-element": "^2.2.1"
+      }
+    }
+    ```
 
-```
-📡 unpkg
-📦 mobx
-📦 lit-html
-📦 @babylonjs/core
-📦 lit-element@^2.2.0
-```
+    *output: `importmap.json`*
+    ```json
+    {
+      "imports": {
+        "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@1.1.1/",
+        "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@1.1.1/lit-html.js",
+        "lit-element/": "https://cdn.jsdelivr.net/npm/lit-element@2.2.1/",
+        "lit-element": "https://cdn.jsdelivr.net/npm/lit-element@2.2.1/lit-element.js"
+      }
+    }
+    ```
+    by default, the import map points to `jsdelivr` as the package host
 
-let me explain what comprises an `importly.config`
+4. **install the import map on your page via [es-module-shims](https://github.com/guybedford/es-module-shims)**  
+    this amazing polyfill makes import maps work *today!*  
+    usage is basically like this  
 
-- **`📡` one host statement**  
-  specify which CDN services to load packages from.  
-  you list multiple hosts as fallbacks.  
-  if you're dead inside, you can use `$` instead of the `📡` emoji
+    ```html
+    <script defer src="https://unpkg.com/es-module-shims@0.2.13/dist/es-module-shims.js"></script>
+    <script type="importmap-shim" src="importmap.json"></script>
+    <script type="module-shim">
+      import {LitElement} from "lit-element"
+      //...
+    </script>
+    ```
 
-- **`📦` package statements**  
-  specify an npm package name, and a semver range.  
-  you can also use the `&` symbol instead of `📦`
+5. **now get to work on your project!**
 
-*savvy?* in short, you just `npm i -g importly` and then run the importly cli on the config file, like `importly < importly.config > importmap.json` — oh yeah and these days, you have to use the [es-module-shims](https://github.com/guybedford/es-module-shims) as a browser polyfill
+    ```js
+    // thanks to the import map,
+    // the browser can resolve this bare-specifier import!
+    import {LitElement, html} from "lit-element"
 
-the rest of this readme will explain more context, and more detailed instructions
+    class MyElement extends LitElement {
+      render() {
+        html`<div>...</div>`
+      }
+    }
+    ```
 
-## primer, backstory, rationale
+## importly cli options
+
+- **`<stdin>`** *(filestream)*
+  - any json5 file with a "dependencies" object
+- **`--lock`** *(boolean)*
+  - whether or not to pin exact versions in the import map
+  - default: `true`
+- **`--verbose`** *(boolean)*
+  - whether or not to do some gross console logging
+  - default: `false`
+- **`--host`** *(string)*
+  - host from which to load packages in the browser
+  - allows you to choose which 'generator' importly is using to generate the final import map
+  - valid options: `unpkg`, `jsdelivr`, `node_modules`
+  - default: `jsdelivr`
+- **`--lookup`** *(string)*
+  - host from which to lookup package information (when importly is running)
+  - allows you to choose which 'resolver' importly is using to query information about each package
+  - sometimes unpkg or jsdelivr go down, so this option is handy to switch to the other
+  - valid options: `unpkg`, `jsdelivr`
+  - default: `jsdelivr`
+- **`<stdout>`** *(filestream)*
+  - import map json file
+
+the most useful option is probably the `--host` option, which allows you to set your local `node_modules` as the location from which to load packages 
+
+> ## ***let's do the open source thing!***
+>
+> importly is experimental, and i'm open to new ideas!
+>
+> so please, don't hesitate to contribute by opening new issues to ask questions, discuss ideas, question and even criticize! if you have any ideas, thoughts, or comments: i want to hear it, don't be shy!
+>
+> *cheers!*  
+> &nbsp; *👋 Chase*
+
+----
+
+## so wait, why do we need import maps in the first place?
 
 - we're in the future 🕶️
 - we'll write modern es modules
 - we'll throw out our build step; no transpiling, no bundling
-- we'll load dependencies directly from high-performance worldwide cdn's
-- we'll stop using npm to locally download node_modules
-- we'll use import maps to tell the browser where the dependencies are
-- we'll use importly to track dependencies and generate import maps
+- we'll use import maps to tell the browser where dependencies are
+- we'll use importly to generate those import maps
 
-### so wait, why do we need import maps?
+### beyond bundling
 
 - in the traditional bundling ecosystem, we import stuff like this:
 
@@ -82,62 +139,9 @@ the rest of this readme will explain more context, and more detailed instruction
 
 - the only hitch, is that import maps are an upcoming browser feature — we need a polyfill!
 
-- let's use guy bedford's amazing polyfill, [es-module-shims](https://github.com/guybedford/es-module-shims), allows us to step into the future of import maps today!
+- so let's use guy bedford's amazing polyfill, [es-module-shims](https://github.com/guybedford/es-module-shims), allows us to step into the future of import maps today!
 
-- we just need to author/generate the import maps...
+- i created importly to automatically generate the import maps
 
-## introducing importly, a tool for generating import maps
-
-1. **install the importly cli**  
-    `npm install -g importly`
-
-2. **tell importly about your dependencies**  
-    create your `importly.config` in your project root  
-    such as: `📡 unpkg 📦 lit-element`  
-    *(yes one-liners work, whitespace is optional)*
-
-3. **run importly**  
-    `importly < importly.config > importmap.json`  
-    importly will generate a frozen importmap of your dependencies  
-    importly uses stdin/stdout/stderr
-
-      ```json
-      {
-        "imports": {
-          "lit-element/": "https://unpkg.com/lit-element@2.2.0/",
-          "lit-element": "https://unpkg.com/lit-element@2.2.0/lit-element.js"
-        }
-      }
-      ```
-
-4. **use [es-module-shims](https://github.com/guybedford/es-module-shims)**  
-    this amazing polyfill makes import maps work today!  
-    use the instructions there to install the import map on your page  
-
-5. **now get to work on your project!**
-
-    ```js
-    import {LitElement, html} from "lit-element"
-    class MyElement extends LitElement {
-      render() {
-        html`<div>...</div>`
-      }
-    }
-    ```
-
-## notes
-
-- remember, you don't actually have to use the emojis
-  - host statements start with `📡` or `$`
-  - package statements start with `📦` or `&`
-- 📡 currently supported hosts are just `unpkg` and `jsdelivr`
-  - i'd like to add a new local host, like `node_modules`, to allow local serving, though it's possible that `@pika/web` is just a better option for going that route
-  - i'd also like to make hosts programmatically extensible
-- 📦 package statements have this format: `📦 name@version`
-  - name: the name of an npm package, like `preact` or `lit-element`
-  - version: accepts a semver range, from which to resolve an exact version
-- remember, whitespace is ignored, so your importly config can be a one-liner
-  - `echo '📡 unpkg 📦 lit-element' | importly > importmap.json`
-- also, importly will read from `package.json` under the key "importly"
-  - can be a single string, or an array of strings (see this [package.json](package.json) for example)
-  - then you just run `importly < package.json > importmap.json`
+*cheers,*  
+&nbsp; *👋 Chase*

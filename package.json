@@ -17,7 +17,7 @@
 		"watch": "npm run -s compile-cjs -- --watch",
 		"test": "run-p test1 test2",
 		"test1": "node . < testpackage.json5 > dist-test/importmap.json",
-		"test2": "node . --generator node_modules < testpackage.json5 > dist-test/importmap2.json",
+		"test2": "node . --host=node_modules < testpackage.json5 > dist-test/importmap2.json",
 		"start": "serve"
 	},
 	"dependencies": {
