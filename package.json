@@ -4,6 +4,7 @@
 	"description": "concept web package manager",
 	"license": "ISC",
 	"main": "dist/cli.js",
+	"type": "module",
 	"files": [
 		"dist"
 	],
@@ -11,14 +12,18 @@
 		"importly": "dist/cli.js"
 	},
 	"scripts": {
-		"prepare": "run-s clean compile-cjs",
-		"clean": "rimraf dist dist-test && mkdirp dist dist-test",
-		"compile-cjs": "babel source --out-dir dist",
-		"watch": "npm run -s compile-cjs -- --watch",
-		"test": "run-p test1 test2",
-		"test1": "node . < testpackage.json5 > dist-test/importmap.json",
-		"test2": "node . --host=node_modules < testpackage.json5 > dist-test/importmap2.json",
-		"start": "serve"
+		"build": "run-s clean compile-typescript",
+		"clean": "rm -rf x",
+		"compile-typescript": "tsc",
+		"watch": "npm run -s compile-typescript -- -w",
+		"old-build": "run-s clean compile-cjs",
+		"old-clean": "rimraf dist dist-test && mkdirp dist dist-test",
+		"old-compile-cjs": "babel source --out-dir dist",
+		"old-watch": "npm run -s compile-cjs -- --watch",
+		"old-test": "run-p test1 test2",
+		"old-test1": "node . < testpackage.json5 > dist-test/importmap.json",
+		"old-test2": "node . --host=node_modules < testpackage.json5 > dist-test/importmap2.json",
+		"old-start": "serve"
 	},
 	"dependencies": {
 		"get-stdin": "^9.0.0",
@@ -31,6 +36,7 @@
 	"devDependencies": {
 		"@babel/cli": "^7.14.8",
 		"@babel/core": "^7.15.0",
+		"@types/node": "^16.7.1",
 		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
 		"mkdirp": "^1.0.4",
 		"npm-run-all": "^4.1.5",
