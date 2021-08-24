@@ -1,6 +1,8 @@
 
 import {readFile} from "fs/promises"
-import {importly, localNodeResolver} from "./importly.js"
+
+import {importly} from "./importly.js"
+import {localNodeResolver} from "./aspects/resolvers/local-node-resolver.js"
 
 void async function main() {
 
