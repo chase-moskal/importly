@@ -1,37 +1,16 @@
 
-import meow from "meow"
-
-import {parse} from "./aspects/parse.js"
-import {resolve} from "./aspects/resolve.js"
-import {generate} from "./aspects/generate.js"
-import {readStdin} from "./aspects/utilities/read-stdin.js"
-import {localNodeResolver} from "./aspects/resolvers/local-node-resolver.js"
+import {parse2} from "./aspects/parse2.js"
+import {readInputs} from "./aspects/cli/read-inputs.js"
+import {writeOutput} from "./aspects/cli/write-output.js"
+import {generateForNodeModules} from "./aspects/generate.js"
+import {nodeResolve} from "./aspects/resolvers/node-resolve.js"
 
 void async function cli() {
+	const {flags, stdin} = readInputs()
 
-	const stdin = readStdin()
+	const manifests = parse2({...flags, specification: stdin})
+	const infos = await nodeResolve({manifests})
+	const importmap = generateForNodeModules({...flags, infos})
 
-	const {flags} = meow({
-		importMeta: import.meta,
-		flags: {
-			dev: {
-				type: "boolean",
-				alias: "d",
-			},
-			min: {
-				type: "boolean",
-				alias: "m",
-			},
-		}
-	})
-
-	const manifests = parse({specification: stdin, dev: flags.dev})
-	const solutions = await resolve(manifests, localNodeResolver)
-	const importmap = generate(solutions)
-
-	process.stdout.write(
-		flags.min
-			? JSON.stringify(importmap) + "\n"
-			: "\n" + JSON.stringify(importmap, undefined, "\t") + "\n"
-	)
+	writeOutput({...flags, importmap})
 }()

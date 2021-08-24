@@ -20,9 +20,9 @@ export function readPackageLockJson({dev, json}: {
 	return Object.entries(json.packages)
 		.filter(filterForActualDependencies)
 		.filter(filterDevDependencies)
-		.map(([directory, {version}]) => ({
+		.map(([directory, {version}]) => (<PackageManifest>{
 			version,
-			directory,
+			localDirectory: directory,
 			label: extractPackageLabel(directory),
 		}))
 }

@@ -12,5 +12,9 @@ export function readPackageJson({dev, json}: {
 	}
 
 	return Object.entries(dependencies)
-		.map(([label, version]) => ({label, version}))
+		.map(([label, version]) => ({
+			label,
+			version,
+			localDirectory: undefined,
+		}))
 }

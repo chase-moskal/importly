@@ -1,3 +1,4 @@
 
 export class ImportlyError extends Error {}
-export class ImportlyReadingError extends ImportlyError {}
+export class ImportlyParsingError extends ImportlyError {}
+export class ImportlyResolutionError extends ImportlyError {}
