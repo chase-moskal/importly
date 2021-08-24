@@ -1,8 +1,8 @@
 
 
 import json5 from "json5"
+import {normalize} from "path"
 import {readFile} from "fs/promises"
-import {resolve as pathResolve} from "path"
 
 import {Resolver} from "../../types.js"
 
@@ -20,7 +20,7 @@ export const localNodeResolver: Resolver = async({
 			version,
 			directory,
 			entry: packageJson.main
-				? pathResolve(`${directory}/${packageJson.main}`)
+				? normalize(directory + "/" + packageJson.main)
 				: undefined,
 		}
 	}

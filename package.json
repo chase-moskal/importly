@@ -9,7 +9,7 @@
 		"dist"
 	],
 	"bin": {
-		"importly": "dist/cli.js"
+		"importly": "x/cli.js"
 	},
 	"scripts": {
 		"build": "run-s clean compile-typescript",
@@ -28,6 +28,7 @@
 	"dependencies": {
 		"get-stdin": "^9.0.0",
 		"json5": "^2.2.0",
+		"meow": "^10.1.1",
 		"request": "^2.88.2",
 		"request-promise": "^4.2.6",
 		"typescript": "^4.3.5",
