@@ -8,20 +8,14 @@ export interface ImportMap {
 	scopes?: {[key: string]: Mapping},
 }
 
-export interface PackageManifest2 {
+export interface PackageManifest {
 	label: string
 	version: string
 	parents: string[]
 }
 
-export interface PackageInfo extends PackageManifest2 {
+export interface PackageInfo extends PackageManifest {
 	entry: undefined | string
-}
-
-export interface PackageManifest {
-	label: string
-	version: string
-	localDirectory: undefined | string
 }
 
 export enum SpecificationType {
@@ -48,14 +42,3 @@ export interface PackageLock {
 		[key: string]: LockDetails
 	}
 }
-
-export interface PackageSolution {
-	label: string
-	version: string
-	directory: string
-	scope?: string
-	entry?: string
-}
-
-export type Resolver =
-	({}: PackageManifest) => Promise<undefined | PackageSolution>

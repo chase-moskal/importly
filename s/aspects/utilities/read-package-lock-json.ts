@@ -1,28 +1,40 @@
 
-import {extractPackageLabel} from "./extract-package-label.js"
 import {LockDetails, PackageLock, PackageManifest} from "../../types.js"
 
-export function readPackageLockJson({dev, json}: {
-		dev: boolean
+export function readPackageLockJson({json, production}: {
 		json: PackageLock
+		production: boolean
 	}): PackageManifest[] {
 
 	type Filter = ([]: [string, LockDetails]) => boolean
 	
-	const filterForActualDependencies: Filter =
+	const filterForActualDependencies: Filter = (
 		([directory]) => !!directory
+	)
 
-	const filterDevDependencies: Filter =
-		dev
-			? () => true
-			: ([,details]) => !details.dev
+	const filterOutOptionals: Filter = (
+		([,{optional}]) => !optional
+	)
+
+	const filterDevDependencies: Filter = (
+		production
+			? ([,details]) => !details.dev
+			: () => true
+	)
 
 	return Object.entries(json.packages)
 		.filter(filterForActualDependencies)
+		.filter(filterOutOptionals)
 		.filter(filterDevDependencies)
-		.map(([directory, {version}]) => (<PackageManifest>{
-			version,
-			localDirectory: directory,
-			label: extractPackageLabel(directory),
-		}))
+		.map(([directory, {version}]) => {
+			const parents = directory
+				.split(/\/?node_modules\/?/)
+				.filter(s => s.length > 0)
+			const label = parents.pop()
+			return {
+				label,
+				version,
+				parents,
+			}
+		})
 }

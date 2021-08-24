@@ -1,8 +1,8 @@
 
 import {normalize} from "path"
-import {ImportMap, PackageInfo} from "../types.js"
+import {ImportMap, PackageInfo} from "../../types.js"
 
-export function generateForNodeModules({root, infos}: {
+export function nodeGenerator({root, infos}: {
 		root: string
 		infos: PackageInfo[]
 	}) {

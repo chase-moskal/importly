@@ -1,14 +1,14 @@
 
 import json5 from "json5"
 import {readFile} from "fs/promises"
-import {PackageInfo, PackageManifest2} from "../../types.js"
+import {ImportlyLookupError} from "../errors.js"
+import {PackageInfo, PackageManifest} from "../../types.js"
 import {determinePackageEntry} from "../utilities/determine-package-entry.js"
-import {ImportlyResolutionError} from "../errors.js"
 
-export async function nodeResolve({
+export async function nodeLookup({
 		manifests,
 	}: {
-		manifests: PackageManifest2[]
+		manifests: PackageManifest[]
 	}): Promise<PackageInfo[]> {
 
 	const infos = await Promise.all(
@@ -23,7 +23,7 @@ export async function nodeResolve({
 				return <PackageInfo>{...manifest, entry}
 			}
 			catch (error) {
-				throw new ImportlyResolutionError(`not found: "${path}"`)
+				throw new ImportlyLookupError(`error looking at: "${path}"`)
 			}
 		})
 	)
