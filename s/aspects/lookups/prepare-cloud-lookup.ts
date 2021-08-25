@@ -10,8 +10,8 @@ export const prepareCloudLookup = (linker: Linker): Lookup => async({orders}) =>
 		orders.map(async order => {
 			const path = `${linker(order.label, order.version)}/package.json`
 			try {
-				const json: PackageJson = await axios.get(path, {responseType: "json"})
-				const entry = determinePackageEntry(json)
+				const {data} = await axios.get(path)
+				const entry = determinePackageEntry(data)
 				return <PackageManifest>{...order, entry}
 			}
 			catch (error) {

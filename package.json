@@ -3,27 +3,21 @@
 	"version": "0.1.0-dev.0",
 	"description": "concept web package manager",
 	"license": "ISC",
-	"main": "dist/cli.js",
 	"type": "module",
 	"files": [
-		"dist"
+		"x",
+		"s"
 	],
 	"bin": {
 		"importly": "x/cli.js"
 	},
 	"scripts": {
-		"build": "run-s clean compile-typescript",
+		"build": "run-s clean compile-typescript test",
 		"clean": "rm -rf x",
 		"compile-typescript": "tsc",
 		"watch": "npm run -s compile-typescript -- -w",
-		"old-build": "run-s clean compile-cjs",
-		"old-clean": "rimraf dist dist-test && mkdirp dist dist-test",
-		"old-compile-cjs": "babel source --out-dir dist",
-		"old-watch": "npm run -s compile-cjs -- --watch",
-		"old-test": "run-p test1 test2",
-		"old-test1": "node . < testpackage.json5 > dist-test/importmap.json",
-		"old-test2": "node . --host=node_modules < testpackage.json5 > dist-test/importmap2.json",
-		"old-start": "serve"
+		"test": "node x/cli.js --lookup=jsdelivr --host=unpkg < test-input.json5 > x/importmap.example.json",
+		"start": "serve"
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
