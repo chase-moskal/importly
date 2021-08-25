@@ -21,6 +21,11 @@ export function readInputs() {
 				alias: "h",
 				default: "node_modules",
 			},
+			lookup: {
+				type: "string",
+				alias: "l",
+				default: "node_modules",
+			},
 			root: {
 				type: "string",
 				alias: "r",

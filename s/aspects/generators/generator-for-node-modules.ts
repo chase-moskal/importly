@@ -1,8 +1,8 @@
 
 import {normalize} from "path"
-import {ImportMap, ImportMapGenerator} from "../../types.js"
+import {ImportMap, Generate} from "../../types.js"
 
-export const generatorForNodeModules: ImportMapGenerator = ({root, manifests}) => {
+export const generatorForNodeModules: Generate = ({root, manifests}) => {
 	const importmap: ImportMap = {
 		imports: {},
 		scopes: {},

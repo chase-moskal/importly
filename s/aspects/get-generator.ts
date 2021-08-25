@@ -1,16 +1,17 @@
 
 import {ImportlyGenerationError} from "./errors.js"
-import {generatorForJspm} from "./generators/generator-for-jspm.js"
-import {generatorForUnpkg} from "./generators/generator-for-unpkg.js"
-import {generatorForJsdelivr} from "./generators/generator-for-jsdelivr.js"
+import {linkerJspm} from "./linkers/linker-jspm.js"
+import {linkerUnpkg} from "./linkers/linker-unpkg.js"
+import {linkerJsdelivr} from "./linkers/linker-jsdelivr.js"
+import {prepareCloudGenerator} from "./generators/prepare-cloud-generator.js"
 import {generatorForNodeModules} from "./generators/generator-for-node-modules.js"
 
 export function getGenerator(host: string) {
 	const generators = {
-		jspm: generatorForJspm,
-		unpkg: generatorForUnpkg,
-		jsdelivr: generatorForJsdelivr,
 		node_modules: generatorForNodeModules,
+		jspm: prepareCloudGenerator(linkerJspm),
+		unpkg: prepareCloudGenerator(linkerUnpkg),
+		jsdelivr: prepareCloudGenerator(linkerJsdelivr),
 	}
 
 	const keys = Object.keys(generators)

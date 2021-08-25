@@ -2,15 +2,12 @@
 import json5 from "json5"
 import {readFile} from "fs/promises"
 
-import {ImportlyLookupError} from "./errors.js"
-import {PackageManifest, PackageOrder} from "../types.js"
-import {determinePackageEntry} from "./utilities/determine-package-entry.js"
+import {ImportlyLookupError} from "../errors.js"
+import {Lookup, PackageManifest} from "../../types.js"
+import {determinePackageEntry} from "../utilities/determine-package-entry.js"
 
-export async function lookup({orders}: {
-		orders: PackageOrder[]
-	}): Promise<PackageManifest[]> {
-
-	const manifests = await Promise.all(
+export const lookupViaNodeModules: Lookup = async({orders}) => {
+	return Promise.all(
 		orders.map(async order => {
 			const segments = [...order.parents, order.label]
 			const directory = "node_modules/" + segments.join("/node_modules/")
@@ -26,5 +23,4 @@ export async function lookup({orders}: {
 			}
 		})
 	)
-	return manifests.filter(m => !!m)
 }

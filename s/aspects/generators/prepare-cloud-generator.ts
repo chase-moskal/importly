@@ -1,10 +1,10 @@
 
 import {ImportlyGenerationError} from "../errors.js"
-import {ImportMap, ImportMapGenerator, PackageManifest} from "../../types.js"
+import {ImportMap, Generate, PackageManifest, Linker} from "../../types.js"
 
 export const prepareCloudGenerator = (
-		linker: (label: string, version: string) => string
-	): ImportMapGenerator => function cloudGenerator({manifests, semver}) {
+		linker: Linker
+	): Generate => ({manifests, semver}) => {
 
 	const mostRooty: {[label: string]: PackageManifest} = {}
 	for (const manifest of manifests) {
