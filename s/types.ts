@@ -36,7 +36,8 @@ export interface PackageManifest extends PackageOrder {
 
 export type Linker = (label: string, version: string) => string
 
-export type Lookup = ({}: {orders: PackageOrder[]}) => Promise<PackageManifest[]>
+export type Lookup = ({}: {orders: PackageOrder[]}) =>
+	Promise<PackageManifest[]>
 
 export type Generate = ({}: {
 	root: string

@@ -2,7 +2,7 @@
 import axios from "axios"
 
 import {ImportlyLookupError} from "../errors.js"
-import {Linker, Lookup, PackageJson, PackageManifest} from "../../types.js"
+import {Linker, Lookup, PackageManifest} from "../../types.js"
 import {determinePackageEntry} from "../utilities/determine-package-entry.js"
 
 export const prepareCloudLookup = (linker: Linker): Lookup => async({orders}) => {
