@@ -5,8 +5,7 @@ import {generatorForUnpkg} from "./generators/generator-for-unpkg.js"
 import {generatorForJsdelivr} from "./generators/generator-for-jsdelivr.js"
 import {generatorForNodeModules} from "./generators/generator-for-node-modules.js"
 
-export async function getGenerator({host}: {host: string}) {
-
+export function getGenerator(host: string) {
 	const generators = {
 		jspm: generatorForJspm,
 		unpkg: generatorForUnpkg,
@@ -15,7 +14,6 @@ export async function getGenerator({host}: {host: string}) {
 	}
 
 	const keys = Object.keys(generators)
-
 	if (!keys.includes(host))
 		throw new ImportlyGenerationError(`no generator found for host "${host}" (must be ${keys.map(k => `"${k}"`).join(", ")})`)
 
