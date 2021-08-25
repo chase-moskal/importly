@@ -1,10 +1,10 @@
 
-import {PackageJson, PackageManifest} from "../../types.js"
+import {PackageJson, PackageOrder} from "../../types.js"
 
 export function readPackageJson({production, json}: {
 		production: boolean
 		json: PackageJson
-	}): PackageManifest[] {
+	}): PackageOrder[] {
 
 	const dependencies = {
 		...(json.dependencies ?? {}),

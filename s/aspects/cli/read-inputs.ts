@@ -16,10 +16,20 @@ export function readInputs() {
 				type: "boolean",
 				alias: "m",
 			},
+			host: {
+				type: "string",
+				alias: "h",
+				default: "node_modules",
+			},
 			root: {
 				type: "string",
 				alias: "r",
 				default: "/",
+			},
+			semver: {
+				type: "string",
+				alias: "s",
+				default: "",
 			},
 		}
 	})

@@ -1,19 +1,18 @@
 
 import {normalize} from "path"
-import {ImportMap, PackageInfo} from "../../types.js"
+import {ImportMap, ImportMapGenerator} from "../../types.js"
 
-export function nodeGenerator({root, infos}: {
-		root: string
-		infos: PackageInfo[]
-	}) {
+export const generatorForNodeModules: ImportMapGenerator = ({root, manifests}) => {
 	const importmap: ImportMap = {
 		imports: {},
 		scopes: {},
 	}
+
 	function getPath(segments: string[]) {
 		return normalize(root + "/node_modules/" + segments.join("/node_modules/"))
 	}
-	for (const {entry, parents, label} of infos) {
+
+	for (const {entry, parents, label} of manifests) {
 		const isScoped = parents.length > 0
 		if (isScoped) {
 			const directory = getPath(parents) + "/"

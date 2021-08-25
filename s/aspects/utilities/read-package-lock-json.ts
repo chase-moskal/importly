@@ -1,10 +1,10 @@
 
-import {LockDetails, PackageLock, PackageManifest} from "../../types.js"
+import {LockDetails, PackageLock, PackageOrder} from "../../types.js"
 
 export function readPackageLockJson({json, production}: {
 		json: PackageLock
 		production: boolean
-	}): PackageManifest[] {
+	}): PackageOrder[] {
 
 	type Filter = ([]: [string, LockDetails]) => boolean
 	

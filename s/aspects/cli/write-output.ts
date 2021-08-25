@@ -8,6 +8,6 @@ export function writeOutput({minimal, importmap}: {
 	process.stdout.write(
 		minimal
 			? JSON.stringify(importmap) + "\n"
-			: "\n" + JSON.stringify(importmap, undefined, "\t") + "\n"
+			: JSON.stringify(importmap, undefined, "\t") + "\n"
 	)
 }

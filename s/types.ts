@@ -1,24 +1,11 @@
 
-export interface Mapping {
-	[key: string]: string
-}
+export type ImportMapGenerator = ({}: {
+	root: string
+	semver: string
+	manifests: PackageManifest[]
+}) => ImportMap
 
-export interface ImportMap {
-	imports?: Mapping,
-	scopes?: {[key: string]: Mapping},
-}
-
-export interface PackageManifest {
-	label: string
-	version: string
-	parents: string[]
-}
-
-export interface PackageInfo extends PackageManifest {
-	entry: undefined | string
-}
-
-export enum SpecificationType {
+export enum InputType {
 	PackageJson,
 	PackageLockJson,
 }
@@ -31,14 +18,33 @@ export interface PackageJson {
 	devDependencies?: {[key: string]: string}
 }
 
+export interface PackageLock {
+	packages: {
+		[key: string]: LockDetails
+	}
+}
+
 export interface LockDetails {
 	dev: boolean
 	version: string
 	optional: boolean
 }
 
-export interface PackageLock {
-	packages: {
-		[key: string]: LockDetails
-	}
+export interface PackageOrder {
+	label: string
+	version: string
+	parents: string[]
+}
+
+export interface PackageManifest extends PackageOrder {
+	entry: undefined | string
+}
+
+export interface Mapping {
+	[key: string]: string
+}
+
+export interface ImportMap {
+	imports?: Mapping,
+	scopes?: {[key: string]: Mapping},
 }
