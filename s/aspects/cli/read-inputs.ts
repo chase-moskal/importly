@@ -3,9 +3,15 @@ import meow from "meow"
 import {readStdin} from "../utilities/read-stdin.js"
 
 export function readInputs() {
-	const stdin = readStdin()
 
-	const {flags} = meow({
+	const {flags} = meow(`
+		basic usage:
+			importly < package-lock.json > importmap.json
+
+		more options and information:
+			https://github.com/chase-moskal/importly
+			or find the readme in your node_modules
+	`, {
 		importMeta: import.meta,
 		flags: {
 			production: {
@@ -38,6 +44,8 @@ export function readInputs() {
 			},
 		}
 	})
+
+	const stdin = readStdin()
 
 	return {flags, stdin}
 }

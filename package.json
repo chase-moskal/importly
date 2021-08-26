@@ -1,7 +1,7 @@
 {
 	"name": "importly",
 	"version": "0.1.0-dev.1",
-	"description": "import map generator",
+	"description": "importly generates import maps",
 	"license": "ISC",
 	"type": "module",
 	"files": [
