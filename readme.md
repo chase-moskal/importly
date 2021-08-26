@@ -70,7 +70,7 @@ you don't have to use a `package-lock.json`
 - actually, any json that has `dependencies` will work.
 - however, the `package-lock.json` is better because it includes subdependencies (and they're scoped, which means your dependencies can use different versions of a single subdependency)
 
-scoped subdependencies only work when:
+scoped subdependencies only work when
 - you're using a `package-lock.json`
 - and you're using `--host=node_modules`
 
