@@ -1,12 +1,12 @@
 
 import {ImportMap} from "../../types.js"
 
-export function writeOutput({minimal, importmap}: {
-		minimal: boolean
+export function writeOutput({mini, importmap}: {
+		mini: boolean
 		importmap: ImportMap
 	}) {
 	process.stdout.write(
-		minimal
+		mini
 			? JSON.stringify(importmap) + "\n"
 			: JSON.stringify(importmap, undefined, "\t") + "\n"
 	)

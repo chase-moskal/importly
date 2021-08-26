@@ -33,7 +33,7 @@ export const prepareCloudGenerator = (
 function applySemverPreference(semver: string, version: string) {
 	if (semver === "^") semver = "caret"
 	if (semver === "~") semver = "tilde"
-	if (semver === "") semver = "lock"
+	if (semver === "") semver = "exact"
 
 	if (version.startsWith("^") || version.startsWith("~"))
 		version = version.slice(1)
@@ -41,8 +41,8 @@ function applySemverPreference(semver: string, version: string) {
 	switch (semver) {
 		case "caret": return "^" + version
 		case "tilde": return "~" + version
-		case "lock": return version
-		default: throw new ImportlyGenerationError(`invalid semver option "${semver}" (must be "caret", "tilde", or "lock")`)
+		case "exact": return version
+		default: throw new ImportlyGenerationError(`invalid semver option "${semver}" (must be "caret", "tilde", or "exact")`)
 	}
 }
 

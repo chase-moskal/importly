@@ -12,7 +12,7 @@ export function readInputs() {
 				type: "boolean",
 				alias: "p",
 			},
-			minimal: {
+			mini: {
 				type: "boolean",
 				alias: "m",
 			},
@@ -34,7 +34,7 @@ export function readInputs() {
 			semver: {
 				type: "string",
 				alias: "s",
-				default: "",
+				default: "exact",
 			},
 		}
 	})
