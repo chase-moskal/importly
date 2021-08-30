@@ -56,8 +56,8 @@ only applies when `--host=node_modules`.
 the semver prefix to use on the import map versions.  
 only applies when pointing to a cloud cdn.  
 - `--semver=exact` or `--semver=""` *(default)* no prefix, use pinned versions
-- `--semver=caret` or `--semver=^` pin major version
-- `--semver=tilde` or `--semver=~` pin to minor version
+- `--semver=major` or `--semver=^` pin major version, with caret prefix
+- `--semver=minor` or `--semver=~` pin minor version, with tilde prefix
 
 <br/>
 
