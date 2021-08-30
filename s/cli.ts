@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 import {parse} from "./aspects/parse.js"
 import {getLookup} from "./aspects/get-lookup.js"
