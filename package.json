@@ -12,9 +12,10 @@
 		"importly": "x/cli.js"
 	},
 	"scripts": {
-		"build": "run-s clean compile-typescript test",
+		"build": "run-s clean compile-typescript permissions test",
 		"clean": "rm -rf x",
 		"compile-typescript": "tsc",
+		"permissions": "chmod +x x/cli.js",
 		"watch": "npm run -s compile-typescript -- -w",
 		"test": "node x/cli.js --lookup=jsdelivr --host=unpkg < test-input.json5 > x/importmap.example.json",
 		"start": "serve"
