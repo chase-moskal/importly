@@ -2,7 +2,7 @@
 import json5 from "json5"
 import {readFile} from "fs/promises"
 
-import {ImportlyLookupError} from "../errors.js"
+// import {ImportlyLookupError} from "../errors.js"
 import {Lookup, PackageManifest} from "../../types.js"
 import {determinePackageEntry} from "../utilities/determine-package-entry.js"
 
@@ -19,8 +19,9 @@ export const lookupViaNodeModules: Lookup = async({orders}) => {
 				return <PackageManifest>{...order, entry}
 			}
 			catch (error) {
-				throw new ImportlyLookupError(`error looking at: "${path}"`)
+				return undefined
+				// throw new ImportlyLookupError(`error looking at: "${path}"`)
 			}
 		})
-	)
+	).then(manifests => manifests.filter(m => !!m))
 }
