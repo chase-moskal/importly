@@ -9,7 +9,7 @@ works nicely with [es-module-shims](https://github.com/guybedford/es-module-shim
 
 <br/>
 
-## 🛸 basic usage
+## 🛸 importly basic usage
 
 ```sh
 npx importly < package-lock.json > importmap.json
@@ -28,13 +28,13 @@ where the dependencies will be loaded from.
 <br/>
 
 **`--production`**  
-ignore dev dependencies.  
+ignore your package's dev dependencies.  
 
 <br/>
 
 **`--lookup=node_modules`**  
-tell importly where to look for dependencies.  
-it has to inspect each package json.  
+tell importly where to seek information about packages.  
+it needs to inspect each package json.  
 - `--lookup=node_modules` *(default)* — look in your local node_modules directory
 - `--lookup=unpkg` — query the [unpkg](https://unpkg.com/) cdn
 - `--lookup=jsdelivr` — query the [jsdelivr](https://www.jsdelivr.com/) cdn
@@ -44,7 +44,11 @@ it has to inspect each package json.
 
 **`--root=/`**  
 the url prefix that leads to your node_modules directory.  
+this affects where the importmap is pointing to.  
 only applies when `--host=node_modules`.  
+- `--root=/` *(default)* — find node_modules at your server root
+- `--root=""` — find node_modules in the current directory
+- `--root=/my/special/path/` — find node_modules at `/my/special/path/node_modules`
 
 <br/>
 
@@ -63,7 +67,7 @@ eliminates whitespace.
 
 <br/>
 
-## 🌠 the more you know
+## 🌠 the more you know, about importly
 
 you don't have to use a `package-lock.json`
 - a `package.json` will work.
@@ -80,7 +84,7 @@ works offline when
 
 <br/>
 
-## 🍻 open source
+## 🍻 importly is open source
 
 - ask any questions in the issues or discussions tab
 - fix that bug, send me those pull requests
