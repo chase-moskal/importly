@@ -1,14 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<script type="importmap-shim" src="x/importmap.example.json"></script>
+<script type=importmap-shim src="x/importmap.example.json"></script>
 
-<script defer type="module-shim">
-  import {nap} from "xiome/x/toolbox/nap.js"
-  if (!!nap)
-  	console.log("importly: all systems go!")
+<script defer type=module-shim>
+	import {nap} from "xiome/x/toolbox/nap.js"
+	if (!!nap)
+		console.log("importly: all systems go!")
 </script>
 
-<script
-  defer
-  src="https://unpkg.com/es-module-shims@0.12.8/dist/es-module-shims.js"
-></script>
+<script defer src="https://unpkg.com/es-module-shims@0.12.8/dist/es-module-shims.js"></script>

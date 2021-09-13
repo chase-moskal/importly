@@ -1,35 +1,35 @@
-import json5 from "json5";
 
-import { ImportlyParsingError } from "./errors.js";
-import { PackageOrder, InputType } from "../types.js";
-import { readPackageJson } from "./utilities/read-package-json.js";
-import { readPackageLockJson } from "./utilities/read-package-lock-json.js";
+import json5 from "json5"
 
-export function parse({
-  input,
-  production,
-}: {
-  input: string;
-  production: boolean;
-}): PackageOrder[] {
-  try {
-    const json = json5.parse(input);
+import {ImportlyParsingError} from "./errors.js"
+import {PackageOrder, InputType} from "../types.js"
+import {readPackageJson} from "./utilities/read-package-json.js"
+import {readPackageLockJson} from "./utilities/read-package-lock-json.js"
 
-    const type: InputType = json.packages
-      ? InputType.PackageLockJson
-      : InputType.PackageJson;
+export function parse({input, production}: {
+		input: string
+		production: boolean
+	}): PackageOrder[] {
+	try {
+		const json = json5.parse(input)
 
-    switch (type) {
-      case InputType.PackageLockJson:
-        return readPackageLockJson({ json, production });
+		const type: InputType = json.packages
+			? InputType.PackageLockJson
+			: InputType.PackageJson
 
-      case InputType.PackageJson:
-        return readPackageJson({ json, production });
+		switch (type) {
 
-      default:
-        throw new ImportlyParsingError("invalid input");
-    }
-  } catch (error) {
-    throw new ImportlyParsingError("error parsing input");
-  }
+			case InputType.PackageLockJson:
+				return readPackageLockJson({json, production})
+
+			case InputType.PackageJson:
+				return readPackageJson({json, production})
+
+			default:
+				throw new ImportlyParsingError("invalid input")
+		}
+	}
+	catch (error) {
+		throw new ImportlyParsingError("error parsing input")
+	}
 }
