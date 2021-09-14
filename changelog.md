@@ -1,5 +1,10 @@
 
-## v0.1.0
+## v0.1.0-dev.4
+
+breaking
+- replace `--production` with the opposite flag `--dev`
+
+## v0.1.0-dev.1
 
 complete rewrite of importly.
 

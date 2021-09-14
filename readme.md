@@ -27,8 +27,8 @@ where the dependencies will be loaded from.
 
 <br/>
 
-**`--production`**  
-ignore your package's dev dependencies.  
+**`--dev`**  
+include your package's devDependencies.  
 
 <br/>
 
