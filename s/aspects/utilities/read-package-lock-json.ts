@@ -1,26 +1,21 @@
 
 import {LockDetails, PackageLock, PackageOrder} from "../../types.js"
 
-export function readPackageLockJson({json, production}: {
+export function readPackageLockJson({json, dev}: {
 		json: PackageLock
-		production: boolean
+		dev: boolean
 	}): PackageOrder[] {
 
 	type Filter = ([]: [string, LockDetails]) => boolean
-	
-	const filterForActualDependencies: Filter = (
-		([directory]) => !!directory
-	)
 
-	const filterOutOptionals: Filter = (
-		([,{optional}]) => !optional
-	)
+	const filterForActualDependencies: Filter = ([directory]) => !!directory
 
-	const filterDevDependencies: Filter = (
-		production
-			? ([,details]) => !details.dev
-			: () => true
-	)
+	const filterOutOptionals: Filter = ([,{optional}]) => !optional
+
+	const filterDevDependencies: Filter =
+		dev
+			? () => true
+			: ([,details]) => !details.dev
 
 	return Object.entries(json.packages)
 		.filter(filterForActualDependencies)

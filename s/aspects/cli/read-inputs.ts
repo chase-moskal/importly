@@ -3,7 +3,6 @@ import meow from "meow"
 import {readStdin} from "../utilities/read-stdin.js"
 
 export function readInputs() {
-
 	const {flags} = meow(`
 		basic usage:
 			importly < package-lock.json > importmap.json
@@ -14,9 +13,9 @@ export function readInputs() {
 	`, {
 		importMeta: import.meta,
 		flags: {
-			production: {
+			dev: {
 				type: "boolean",
-				alias: "p",
+				alias: "d",
 			},
 			mini: {
 				type: "boolean",
