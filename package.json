@@ -17,7 +17,7 @@
 		"compile-typescript": "tsc",
 		"permissions": "chmod +x x/cli.js",
 		"watch": "npm run -s compile-typescript -- -w",
-		"test": "node x/cli.js --lookup=jsdelivr --host=unpkg < test-input.json5 > x/importmap.example.json",
+		"test": "node x/cli.js < package-lock.json > x/importmap.example.json",
 		"start": "serve"
 	},
 	"dependencies": {
