@@ -23,7 +23,6 @@ where the dependencies will be loaded from.
 - `--host=node_modules` *(default)* — point to your node_modules directory
 - `--host=unpkg` — point to the [unpkg](https://unpkg.com/) cdn
 - `--host=jsdelivr` — point to the [jsdelivr](https://www.jsdelivr.com/) cdn
-- `--host=jspm` — point to the [jspm](https://jspm.org/docs/cdn) cdn
 
 <br/>
 
@@ -38,7 +37,6 @@ it needs to inspect each package json.
 - `--lookup=node_modules` *(default)* — look in your local node_modules directory
 - `--lookup=unpkg` — query the [unpkg](https://unpkg.com/) cdn
 - `--lookup=jsdelivr` — query the [jsdelivr](https://www.jsdelivr.com/) cdn
-- `--lookup=jspm` — query the [jspm](https://jspm.org/docs/cdn) cdn
 
 <br/>
 
