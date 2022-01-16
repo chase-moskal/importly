@@ -1,4 +1,6 @@
 
+## v0.2.0
+
 breaking
 - removed jspm integration, see ticket #30
 
