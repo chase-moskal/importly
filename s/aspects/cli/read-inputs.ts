@@ -15,30 +15,30 @@ export function readInputs() {
 		flags: {
 			dev: {
 				type: "boolean",
-				alias: "d",
+				shortFlag: "d",
 			},
 			mini: {
 				type: "boolean",
-				alias: "m",
+				shortFlag: "m",
 			},
 			host: {
 				type: "string",
-				alias: "h",
+				shortFlag: "h",
 				default: "node_modules",
 			},
 			lookup: {
 				type: "string",
-				alias: "l",
+				shortFlag: "l",
 				default: "node_modules",
 			},
 			root: {
 				type: "string",
-				alias: "r",
+				shortFlag: "r",
 				default: "/",
 			},
 			semver: {
 				type: "string",
-				alias: "s",
+				shortFlag: "s",
 				default: "exact",
 			},
 		}

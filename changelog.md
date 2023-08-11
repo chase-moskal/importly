@@ -1,4 +1,8 @@
 
+## v0.2.1
+
+- updated all dependencies, and ran npm audit fix.
+
 ## v0.2.0
 
 breaking
